@@ -1,6 +1,6 @@
 import numbers
 import warnings
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Union
 
 import torch
 from torch import nn, Tensor
@@ -292,7 +292,8 @@ class LSTM(RNNBase):
             return hx
         return apply_permutation(hx[0], permutation), apply_permutation(hx[1], permutation)
 
-    def forward(self, input, hx=None):
+    def forward(self, input: Union[Tensor, PackedSequence],
+                hx: Optional[Tensor] = None) -> Tuple[Union[Tensor, PackedSequence], Tensor]:
         orig_input = input
         # xxx: isinstance check needs to be in conditional for TorchScript to compile
         if isinstance(orig_input, PackedSequence):
