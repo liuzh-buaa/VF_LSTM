@@ -152,20 +152,20 @@ class RNNBase(nn.Module):
 
         if mode == 'LSTM':
             self.layers = init_stacked_layers(self.num_layers, RNNLayer,
-                                              [LSTMCell, input_size, hidden_size],
-                                              [LSTMCell, hidden_size, hidden_size])
+                                              [LSTMCell, input_size, hidden_size, bias],
+                                              [LSTMCell, hidden_size, hidden_size, bias])
         elif mode == 'GRU':
             self.layers = init_stacked_layers(self.num_layers, RNNLayer,
-                                              [GRUCell, input_size, hidden_size],
-                                              [GRUCell, hidden_size, hidden_size])
+                                              [GRUCell, input_size, hidden_size, bias],
+                                              [GRUCell, hidden_size, hidden_size, bias])
         elif mode == 'RNN_TANH':
             self.layers = init_stacked_layers(self.num_layers, RNNLayer,
-                                              [RNNCell, input_size, hidden_size, True, 'tanh'],
-                                              [RNNCell, hidden_size, hidden_size, True, 'tanh'])
+                                              [RNNCell, input_size, hidden_size, bias, 'tanh'],
+                                              [RNNCell, hidden_size, hidden_size, bias, 'tanh'])
         elif mode == 'RNN_RELU':
             self.layers = init_stacked_layers(self.num_layers, RNNLayer,
-                                              [RNNCell, input_size, hidden_size, True, 'relu'],
-                                              [RNNCell, hidden_size, hidden_size, True, 'relu'])
+                                              [RNNCell, input_size, hidden_size, bias, 'relu'],
+                                              [RNNCell, hidden_size, hidden_size, bias, 'relu'])
         else:
             raise ValueError("Unrecognized RNN mode: " + mode)
 
